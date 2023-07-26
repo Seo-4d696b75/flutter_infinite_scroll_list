@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_infinite_scroll_list/data/api/github_repository_api.dart';
 import 'package:flutter_infinite_scroll_list/domain/entity/search_result.dart';
@@ -13,14 +15,20 @@ SearchRepository searchRepository(SearchRepositoryRef ref) {
 }
 
 class SearchRepository {
-  const SearchRepository(this._api);
+  SearchRepository(this._api);
 
   final GithubRepositoryApi _api;
+
+  final _random = Random();
 
   Future<GithubRepositorySearchResult> search({
     required String query,
     required int page,
   }) async {
+    await Future<void>.delayed(const Duration(seconds: 1));
+    if (_random.nextDouble() < 0.3) {
+      throw Exception('random error happened');
+    }
     final res = await _api.search(
       query: query,
       page: page,
