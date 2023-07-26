@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_infinite_scroll_list/data/api/github_repository_api.dart';
 import 'package:flutter_infinite_scroll_list/domain/entity/github_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -28,11 +29,15 @@ class SearchRepository {
       page: page,
       perPage: 20,
     );
+    if (res.incompleteResults) {
+      debugPrint('Warn: Github rest api time limits exceeded!');
+    }
     return GithubRepositorySearchResult(
       query: query,
       page: page,
       pageSize: 20,
-      nextPage: res.incompleteResults ? page + 1 : null,
+      nextPage:
+          (page - 1) * 20 + res.items.length < res.totalCount ? page + 1 : null,
       repositories: res.items,
     );
   }
