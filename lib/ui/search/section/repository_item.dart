@@ -38,7 +38,7 @@ class RepositoryDescription extends StatelessWidget {
       children: [
         const SizedBox(height: 4),
         Text(
-          repo.description,
+          repo.description ?? repo.language ?? '',
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),

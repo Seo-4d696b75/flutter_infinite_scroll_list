@@ -12,12 +12,12 @@ class GithubRepository with _$GithubRepository {
     required String name,
     required String fullName,
     required String htmlUrl,
-    required String description,
+    required String? description,
     required int stargazersCount,
     required int watchersCount,
     required int forksCount,
     required int openIssuesCount,
-    required String language,
+    required String? language,
     required GithubUser owner,
   }) = _GithubRepository;
 
