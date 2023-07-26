@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/search_result.dart';
+import 'package:flutter_infinite_scroll_list/ui/search/section/repository_item.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SearchResultPage extends ConsumerWidget {
@@ -18,7 +19,7 @@ class SearchResultPage extends ConsumerWidget {
             delegate: SliverChildBuilderDelegate(
               (_, idx) {
                 final repo = value.repositories[idx];
-                return Text(repo.name);
+                return RepositoryItem(repo: repo);
               },
               childCount: value.repositories.length,
             ),
