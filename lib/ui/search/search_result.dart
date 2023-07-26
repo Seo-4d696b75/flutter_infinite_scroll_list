@@ -1,4 +1,5 @@
 import 'package:flutter_infinite_scroll_list/data/repository/search_repository.dart';
+import 'package:flutter_infinite_scroll_list/domain/entity/search_result.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
