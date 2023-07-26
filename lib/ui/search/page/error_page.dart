@@ -21,7 +21,7 @@ class ErrorPage extends ConsumerWidget {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              ref.read(searchResultProvider.notifier).reload();
+              ref.read(searchResultProvider.notifier).refresh();
             },
             child: const Text('Retry'),
           ),

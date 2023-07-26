@@ -28,7 +28,7 @@ class SearchResult extends _$SearchResult {
       return;
     }
     state = const AsyncLoading<GithubRepositorySearchResult>()
-        .copyWithPrevious(previous, isRefresh: false);
+        .copyWithPrevious(previous);
     final next = await AsyncValue.guard(() async {
       final more = await _repository.search(
         query: value.query,
@@ -44,7 +44,7 @@ class SearchResult extends _$SearchResult {
     state = next.copyWithPrevious(previous);
   }
 
-  Future<void> reload() async {
+  Future<void> refresh() async {
     final previous = state;
     if (previous.isLoading) {
       return;
