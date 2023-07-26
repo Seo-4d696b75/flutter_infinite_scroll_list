@@ -11,29 +11,37 @@ class SearchResultPage extends ConsumerWidget {
     final state = ref.watch(searchResultProvider);
     final value = state.requireValue;
 
-    return RefreshIndicator(
-      onRefresh: ref.read(searchResultProvider.notifier).reload,
-      child: CustomScrollView(
-        slivers: [
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (_, idx) {
-                final repo = value.repositories[idx];
-                return RepositoryItem(repo: repo);
-              },
-              childCount: value.repositories.length,
-            ),
-          ),
-          if (state.isLoading && !state.isRefreshing)
-            const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 60,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
+    return NotificationListener<ScrollNotification>(
+      onNotification: (n) {
+        if (n.metrics.pixels == n.metrics.maxScrollExtent) {
+          ref.read(searchResultProvider.notifier).loadMore();
+        }
+        return true;
+      },
+      child: RefreshIndicator(
+        onRefresh: ref.read(searchResultProvider.notifier).reload,
+        child: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (_, idx) {
+                  final repo = value.repositories[idx];
+                  return RepositoryItem(repo: repo);
+                },
+                childCount: value.repositories.length,
               ),
-            )
-        ],
+            ),
+            if (state.isLoading && !state.isRefreshing)
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 60,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              )
+          ],
+        ),
       ),
     );
   }

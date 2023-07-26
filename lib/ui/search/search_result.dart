@@ -28,12 +28,18 @@ class SearchResult extends _$SearchResult {
     }
     state = const AsyncLoading<GithubRepositorySearchResult>()
         .copyWithPrevious(previous, isRefresh: false);
-    final next = await AsyncValue.guard(
-      () => _repository.search(
+    final next = await AsyncValue.guard(() async {
+      final more = await _repository.search(
         query: value.query,
         page: page,
-      ),
-    );
+      );
+      return more.copyWith(
+        repositories: [
+          ...value.repositories,
+          ...more.repositories,
+        ],
+      );
+    });
     state = next.copyWithPrevious(previous);
   }
 
