@@ -21,6 +21,8 @@ class SearchRepository {
 
   final _random = Random();
 
+  static const pageSize = 10;
+
   Future<GithubRepositorySearchResult> search({
     required String query,
     required int page,
@@ -32,15 +34,16 @@ class SearchRepository {
     final res = await _api.search(
       query: query,
       page: page,
-      perPage: 20,
+      perPage: pageSize,
     );
     if (res.incompleteResults) {
       debugPrint('Warn: Github rest api time limits exceeded!');
     }
     return GithubRepositorySearchResult(
       query: query,
-      nextPage:
-          (page - 1) * 20 + res.items.length < res.totalCount ? page + 1 : null,
+      nextPage: (page - 1) * pageSize + res.items.length < res.totalCount
+          ? page + 1
+          : null,
       repositories: res.items,
     );
   }
