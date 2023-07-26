@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_infinite_scroll_list/ui/search/search_error.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/search_result.dart';
+import 'package:flutter_infinite_scroll_list/ui/search/section/error_snackbar.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/section/repository_item.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,6 +25,14 @@ class SearchResultPage extends HookConsumerWidget {
       },
       [value.query],
     );
+
+    ref.listen(searchErrorNotifierProvider, (_, notifier) {
+      showErrorShackBar(
+        context: context,
+        ref: ref,
+        type: notifier.type,
+      );
+    });
 
     return NotificationListener<ScrollNotification>(
       onNotification: (n) {

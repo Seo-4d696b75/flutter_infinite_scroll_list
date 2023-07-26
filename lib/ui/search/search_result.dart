@@ -1,5 +1,6 @@
 import 'package:flutter_infinite_scroll_list/data/repository/search_repository.dart';
 import 'package:flutter_infinite_scroll_list/domain/entity/search_result.dart';
+import 'package:flutter_infinite_scroll_list/ui/search/search_error.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -14,7 +15,14 @@ class SearchResult extends _$SearchResult {
   @override
   Future<GithubRepositorySearchResult> build() async {
     final query = ref.watch(searchQueryProvider);
-    return _repository.search(query: query, page: 1);
+    try {
+      return await _repository.search(query: query, page: 1);
+    } on Exception catch (_) {
+      ref
+          .read(searchErrorNotifierProvider.notifier)
+          .onError(SearchErrorType.first);
+      rethrow;
+    }
   }
 
   Future<void> loadMore() async {
@@ -41,6 +49,11 @@ class SearchResult extends _$SearchResult {
         ],
       );
     });
+    if (next.hasError) {
+      ref
+          .read(searchErrorNotifierProvider.notifier)
+          .onError(SearchErrorType.loadMore);
+    }
     state = next.copyWithPrevious(previous);
   }
 
@@ -58,6 +71,11 @@ class SearchResult extends _$SearchResult {
         page: 1,
       ),
     );
+    if (next.hasError) {
+      ref
+          .read(searchErrorNotifierProvider.notifier)
+          .onError(SearchErrorType.refresh);
+    }
     state = next.copyWithPrevious(previous);
   }
 }
