@@ -27,7 +27,7 @@ class GithubRepositoryApi {
   Future<GithubRepositorySearchResponse> search({
     required String query,
     required int page,
-    int perPage = 20,
+    required int perPage,
   }) async {
     final q = Uri.encodeQueryComponent(query);
     final res = await _dio.get<String>(
