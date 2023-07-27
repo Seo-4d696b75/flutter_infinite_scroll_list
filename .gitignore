@@ -58,3 +58,6 @@ app.*.map.json
 
 # Run configuration for Intellij
 /.run
+
+# l10n
+lib/l10n/*.dart
