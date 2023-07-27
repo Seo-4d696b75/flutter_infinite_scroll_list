@@ -37,7 +37,7 @@ class SearchResult extends _$SearchResult {
         list: result.repositories,
       );
     } on Exception catch (_) {
-      if (state.isReloading || state.isReloading) {
+      if (state.isRefreshing || state.isReloading) {
         ref
             .read(searchErrorNotifierProvider.notifier)
             .onError(SearchErrorType.refreshOrReload);

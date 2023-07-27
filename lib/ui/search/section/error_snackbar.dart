@@ -12,16 +12,12 @@ void showErrorShackBar({
   final snackBar = SnackBar(
     content: const Text('Search failed'),
     behavior: SnackBarBehavior.floating,
-    action: SnackBarAction(
-      label: 'Retry',
-      onPressed: () {
-        if (type == SearchErrorType.refreshOrReload) {
-          ref.invalidate(searchResultProvider);
-        } else if (type == SearchErrorType.loadMore) {
-          ref.read(searchResultProvider.notifier).loadMore();
-        }
-      },
-    ),
+    action: type == SearchErrorType.loadMore
+        ? SnackBarAction(
+            label: 'Retry',
+            onPressed: ref.read(searchResultProvider.notifier).loadMore,
+          )
+        : null,
   );
   manager.showSnackBar(snackBar);
 }
