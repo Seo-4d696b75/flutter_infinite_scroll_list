@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_infinite_scroll_list/l10n/app_localizations.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/page/empty_result_page.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/page/error_page.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/page/first_loading.dart';
@@ -12,9 +13,10 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = L10n.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Repository'),
+        title: Text(l.searchAppBarTitle),
       ),
       body: const Padding(
         padding: EdgeInsets.all(20),

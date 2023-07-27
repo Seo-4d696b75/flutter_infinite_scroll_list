@@ -38,7 +38,6 @@ class SearchResultPage extends HookConsumerWidget {
       onNotification: (n) {
         if (n.metrics.pixels == n.metrics.maxScrollExtent) {
           ref.read(searchResultProvider.notifier).loadMore();
-          debugPrint('onNotification direction: ${n.metrics.axisDirection}');
         }
         return true;
       },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_infinite_scroll_list/l10n/app_localizations.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/search_result.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -7,6 +8,7 @@ class ErrorPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l = L10n.of(context);
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -17,13 +19,13 @@ class ErrorPage extends ConsumerWidget {
             size: 80,
           ),
           const SizedBox(height: 16),
-          const Text('An Error happened'),
+          Text(l.searchErrorPageTitle),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
               ref.invalidate(searchResultProvider);
             },
-            child: const Text('Retry'),
+            child: Text(l.retrySearchButtonLabel),
           ),
         ],
       ),

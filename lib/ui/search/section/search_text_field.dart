@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_infinite_scroll_list/l10n/app_localizations.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/search_result.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -28,6 +29,8 @@ class SearchTextField extends HookConsumerWidget {
       }
     }
 
+    final l = L10n.of(context);
+
     return IntrinsicHeight(
       // TextFieldとButtonの高さ揃える
       child: Row(
@@ -38,9 +41,9 @@ class SearchTextField extends HookConsumerWidget {
             child: TextField(
               controller: controller,
               onChanged: onChange,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'query',
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: l.searchTextFieldLabel,
               ),
               textInputAction: TextInputAction.go,
               onSubmitted: (_) => onSubmit(),
@@ -49,7 +52,7 @@ class SearchTextField extends HookConsumerWidget {
           const SizedBox(width: 10),
           ElevatedButton(
             onPressed: validated ? onSubmit : null,
-            child: const Text('Search'),
+            child: Text(l.searchButtonLabel),
           ),
         ],
       ),
