@@ -57,18 +57,23 @@ class ResultListPage extends HookConsumerWidget {
                     childCount: value.list.length,
                   ),
                 ),
-                if (value.nextPage != null)
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 60,
-                      child: Center(
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 40,
+                    child: Visibility(
+                      // 追加読み込み中
+                      // Note pull-to-refreshでも表示されるが大きな問題にはならない
+                      visible: value.nextPage != null && state.isRefreshing,
+                      child: const Center(
                         child: CircularProgressIndicator(),
                       ),
                     ),
-                  )
+                  ),
+                )
               ],
             ),
             if (state.isReloading)
+              // クエリ変更による検索中
               const Center(
                 child: CircularProgressIndicator(),
               ),

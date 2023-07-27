@@ -38,6 +38,9 @@ class SearchResult extends _$SearchResult {
       );
     } on Exception catch (_) {
       if (state.isRefreshing || state.isReloading) {
+        // 初回読み込み以外の場合
+        // isRefreshing: pull-to-refresh
+        // isReloading: 検索クエリの変更
         ref
             .read(searchErrorNotifierProvider.notifier)
             .onError(SearchErrorType.refreshOrReload);
@@ -49,11 +52,18 @@ class SearchResult extends _$SearchResult {
   Future<void> loadMore() async {
     final previous = state;
     if (previous.isLoading || !previous.hasValue) {
+      // 既にローディング中、表示データ不在の場合はスキップ
       return;
     }
     final value = previous.requireValue;
     final page = value.nextPage;
     if (page == null) {
+      // 次のpage不在の場合はスキップ
+      return;
+    }
+    final query = value.query;
+    if (query != ref.read(searchQueryProvider)) {
+      // クエリ変更直後の検索に失敗した状態ならスキップ
       return;
     }
     state = const AsyncLoading<SearchResultState>().copyWithPrevious(previous);
