@@ -1,25 +1,34 @@
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_infinite_scroll_list/data/api/github_repository_api.dart';
 import 'package:flutter_infinite_scroll_list/domain/entity/search_result.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'search_repository.g.dart';
 
+final debugSearchDelayMilliSecProvider = StateProvider((_) => 0);
+
+final debugSearchErrorFlagProvider = StateProvider((_) => false);
+
 @riverpod
 SearchRepository searchRepository(SearchRepositoryRef ref) {
   return SearchRepository(
-    ref.watch(githubRepositoryApiProvider),
+    api: ref.watch(githubRepositoryApiProvider),
+    debugDelayMilliSec: ref.watch(debugSearchDelayMilliSecProvider),
+    debugErrorFlag: ref.watch(debugSearchErrorFlagProvider),
   );
 }
 
 class SearchRepository {
-  SearchRepository(this._api);
+  const SearchRepository({
+    required this.api,
+    required this.debugDelayMilliSec,
+    required this.debugErrorFlag,
+  });
 
-  final GithubRepositoryApi _api;
-
-  final _random = Random();
+  final GithubRepositoryApi api;
+  final int debugDelayMilliSec;
+  final bool debugErrorFlag;
 
   static const pageSize = 10;
 
@@ -27,11 +36,13 @@ class SearchRepository {
     required String query,
     required int page,
   }) async {
-    await Future<void>.delayed(const Duration(seconds: 1));
-    if (_random.nextDouble() < 0.3) {
-      throw Exception('random error happened');
+    if (!kReleaseMode && debugDelayMilliSec > 0) {
+      await Future<void>.delayed(Duration(milliseconds: debugDelayMilliSec));
     }
-    final res = await _api.search(
+    if (!kReleaseMode && debugErrorFlag) {
+      throw Exception('(debug) error happened');
+    }
+    final res = await api.search(
       query: query,
       page: page,
       perPage: pageSize,
