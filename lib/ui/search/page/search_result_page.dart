@@ -42,7 +42,7 @@ class SearchResultPage extends HookConsumerWidget {
         return true;
       },
       child: RefreshIndicator(
-        onRefresh: ref.read(searchResultProvider.notifier).refresh,
+        onRefresh: () => ref.refresh(searchResultProvider.future),
         child: Stack(
           children: [
             CustomScrollView(

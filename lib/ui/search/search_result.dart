@@ -18,9 +18,11 @@ class SearchResult extends _$SearchResult {
     try {
       return await _repository.search(query: query, page: 1);
     } on Exception catch (_) {
-      ref
-          .read(searchErrorNotifierProvider.notifier)
-          .onError(SearchErrorType.first);
+      if (state.isReloading || state.isReloading) {
+        ref
+            .read(searchErrorNotifierProvider.notifier)
+            .onError(SearchErrorType.refreshOrReload);
+      }
       rethrow;
     }
   }
@@ -53,28 +55,6 @@ class SearchResult extends _$SearchResult {
       ref
           .read(searchErrorNotifierProvider.notifier)
           .onError(SearchErrorType.loadMore);
-    }
-    state = next.copyWithPrevious(previous);
-  }
-
-  Future<void> refresh() async {
-    final previous = state;
-    if (previous.isLoading) {
-      return;
-    }
-    final query = ref.read(searchQueryProvider);
-    state = const AsyncLoading<GithubRepositorySearchResult>()
-        .copyWithPrevious(previous);
-    final next = await AsyncValue.guard(
-      () => _repository.search(
-        query: query,
-        page: 1,
-      ),
-    );
-    if (next.hasError) {
-      ref
-          .read(searchErrorNotifierProvider.notifier)
-          .onError(SearchErrorType.refresh);
     }
     state = next.copyWithPrevious(previous);
   }

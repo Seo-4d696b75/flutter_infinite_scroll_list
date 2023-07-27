@@ -9,30 +9,19 @@ void showErrorShackBar({
   required SearchErrorType type,
 }) {
   final manager = ScaffoldMessenger.of(context);
-  final SnackBar snackBar;
-  switch (type) {
-    case SearchErrorType.first:
-      snackBar = const SnackBar(
-        content: Text('Search failed'),
-        behavior: SnackBarBehavior.floating,
-      );
-      break;
-    case SearchErrorType.loadMore:
-      snackBar = SnackBar(
-        content: const Text('Loading list failed'),
-        behavior: SnackBarBehavior.floating,
-        action: SnackBarAction(
-          label: 'Retry',
-          onPressed: () => ref.read(searchResultProvider.notifier).loadMore(),
-        ),
-      );
-      break;
-    case SearchErrorType.refresh:
-      snackBar = const SnackBar(
-        content: Text('Refresh failed'),
-        behavior: SnackBarBehavior.floating,
-      );
-      break;
-  }
+  final snackBar = SnackBar(
+    content: const Text('Search failed'),
+    behavior: SnackBarBehavior.floating,
+    action: SnackBarAction(
+      label: 'Retry',
+      onPressed: () {
+        if (type == SearchErrorType.refreshOrReload) {
+          ref.invalidate(searchResultProvider);
+        } else if (type == SearchErrorType.loadMore) {
+          ref.read(searchResultProvider.notifier).loadMore();
+        }
+      },
+    ),
+  );
   manager.showSnackBar(snackBar);
 }

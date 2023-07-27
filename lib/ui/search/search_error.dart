@@ -6,9 +6,8 @@ final searchErrorNotifierProvider = ChangeNotifierProvider(
 );
 
 enum SearchErrorType {
-  first,
+  refreshOrReload,
   loadMore,
-  refresh,
 }
 
 class SearchErrorNotifier extends ChangeNotifier {
