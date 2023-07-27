@@ -6,5 +6,9 @@
   "searchErrorPageTitle": "An error happened",
   "searchErrorSnackBarMessage": "Search failed",
   "retrySearchButtonLabel": "Retry",
-  "searchEmptyPageTitle": "No result found"
+  "searchEmptyPageTitle": "No result found",
+  "debugMenuTitle": "Debug Menu",
+  "debugMenuDelayLabel": "Insert delay",
+  "debugMenuErrorLabel": "Force error",
+  "debugMenuCloseCloseButtonLabel": "Close"
 }

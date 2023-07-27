@@ -6,5 +6,9 @@
   "searchErrorPageTitle": "エラーが発生しました",
   "searchErrorSnackBarMessage": "検索に失敗しました",
   "retrySearchButtonLabel": "再試行",
-  "searchEmptyPageTitle": "見つかりません"
+  "searchEmptyPageTitle": "見つかりません",
+  "debugMenuTitle": "デバッグ設定",
+  "debugMenuDelayLabel": "遅延を挿入",
+  "debugMenuErrorLabel": "エラーを発生",
+  "debugMenuCloseCloseButtonLabel": "閉じる"
 }
