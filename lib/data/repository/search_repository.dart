@@ -40,7 +40,6 @@ class SearchRepository {
       debugPrint('Warn: Github rest api time limits exceeded!');
     }
     return GithubRepositorySearchResult(
-      query: query,
       nextPage: (page - 1) * pageSize + res.items.length < res.totalCount
           ? page + 1
           : null,

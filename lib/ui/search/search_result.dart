@@ -1,22 +1,41 @@
 import 'package:flutter_infinite_scroll_list/data/repository/search_repository.dart';
-import 'package:flutter_infinite_scroll_list/domain/entity/search_result.dart';
+import 'package:flutter_infinite_scroll_list/domain/entity/github_repository.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/search_error.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'search_result.freezed.dart';
 
 part 'search_result.g.dart';
 
 final searchQueryProvider = StateProvider((_) => 'linux');
+
+@freezed
+class SearchResultState with _$SearchResultState {
+  const factory SearchResultState({
+    required String query,
+    required int page,
+    required int? nextPage,
+    required List<GithubRepository> list,
+  }) = _SearchResultState;
+}
 
 @riverpod
 class SearchResult extends _$SearchResult {
   SearchRepository get _repository => ref.read(searchRepositoryProvider);
 
   @override
-  Future<GithubRepositorySearchResult> build() async {
+  Future<SearchResultState> build() async {
     final query = ref.watch(searchQueryProvider);
     try {
-      return await _repository.search(query: query, page: 1);
+      final result = await _repository.search(query: query, page: 1);
+      return SearchResultState(
+        query: query,
+        page: 1,
+        nextPage: result.nextPage,
+        list: result.repositories,
+      );
     } on Exception catch (_) {
       if (state.isReloading || state.isReloading) {
         ref
@@ -37,17 +56,18 @@ class SearchResult extends _$SearchResult {
     if (page == null) {
       return;
     }
-    state = const AsyncLoading<GithubRepositorySearchResult>()
-        .copyWithPrevious(previous);
+    state = const AsyncLoading<SearchResultState>().copyWithPrevious(previous);
     final next = await AsyncValue.guard(() async {
-      final more = await _repository.search(
+      final result = await _repository.search(
         query: value.query,
         page: page,
       );
-      return more.copyWith(
-        repositories: [
-          ...value.repositories,
-          ...more.repositories,
+      return value.copyWith(
+        page: page,
+        nextPage: result.nextPage,
+        list: [
+          ...value.list,
+          ...result.repositories,
         ],
       );
     });

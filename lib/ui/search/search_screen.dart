@@ -38,7 +38,7 @@ class _SearchScreenContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(searchResultProvider);
-    if (state.hasValue && state.requireValue.repositories.isNotEmpty) {
+    if (state.hasValue && state.requireValue.list.isNotEmpty) {
       return const SearchResultPage();
     } else if (state.isLoading) {
       return const FirstLoadingPage();

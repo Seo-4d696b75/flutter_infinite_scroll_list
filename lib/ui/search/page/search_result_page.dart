@@ -51,10 +51,10 @@ class SearchResultPage extends HookConsumerWidget {
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (_, idx) {
-                      final repo = value.repositories[idx];
+                      final repo = value.list[idx];
                       return RepositoryItem(repo: repo);
                     },
-                    childCount: value.repositories.length,
+                    childCount: value.list.length,
                   ),
                 ),
                 if (value.nextPage != null)

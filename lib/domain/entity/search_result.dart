@@ -6,7 +6,6 @@ part 'search_result.freezed.dart';
 @freezed
 class GithubRepositorySearchResult with _$GithubRepositorySearchResult {
   const factory GithubRepositorySearchResult({
-    required String query,
     required int? nextPage,
     required List<GithubRepository> repositories,
   }) = _GithubRepositorySearchResult;
