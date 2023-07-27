@@ -5,6 +5,7 @@ import 'package:flutter_infinite_scroll_list/ui/search/page/error_page.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/page/first_loading.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/page/search_result_page.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/search_result.dart';
+import 'package:flutter_infinite_scroll_list/ui/search/section/debug_menu_dialog.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/section/search_text_field.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,6 +18,12 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l.searchAppBarTitle),
+        actions: [
+          IconButton.outlined(
+            onPressed: () => showDebugMenu(context),
+            icon: const Icon(Icons.settings),
+          ),
+        ],
       ),
       body: const Padding(
         padding: EdgeInsets.all(20),
