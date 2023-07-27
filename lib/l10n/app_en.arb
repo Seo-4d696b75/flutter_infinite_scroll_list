@@ -1,0 +1,10 @@
+{
+  "@@locale": "en",
+  "searchAppBarTitle": "Repository Search",
+  "searchTextFieldLabel": "query",
+  "searchButtonLabel": "Search",
+  "searchErrorPageTitle": "An error happened",
+  "searchErrorSnackBarMessage": "Search failed",
+  "retrySearchButtonLabel": "Retry",
+  "searchEmptyPageTitle": "No result found"
+}

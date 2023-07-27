@@ -1,0 +1,10 @@
+{
+  "@@locale": "ja",
+  "searchAppBarTitle": "リポジトリ検索",
+  "searchTextFieldLabel": "キーワード",
+  "searchButtonLabel": "検索",
+  "searchErrorPageTitle": "エラーが発生しました",
+  "searchErrorSnackBarMessage": "検索に失敗しました",
+  "retrySearchButtonLabel": "再試行",
+  "searchEmptyPageTitle": "見つかりません"
+}
