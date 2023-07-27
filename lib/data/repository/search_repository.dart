@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'search_repository.g.dart';
 
-final debugSearchDelayMilliSecProvider = StateProvider((_) => 0);
+final debugSearchDelayMilliSecProvider = StateProvider((_) => 3000);
 
 final debugSearchErrorFlagProvider = StateProvider((_) => false);
 

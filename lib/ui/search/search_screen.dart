@@ -3,7 +3,7 @@ import 'package:flutter_infinite_scroll_list/l10n/app_localizations.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/page/empty_result_page.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/page/error_page.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/page/first_loading.dart';
-import 'package:flutter_infinite_scroll_list/ui/search/page/search_result_page.dart';
+import 'package:flutter_infinite_scroll_list/ui/search/page/result_list_page.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/search_result.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/section/debug_menu_dialog.dart';
 import 'package:flutter_infinite_scroll_list/ui/search/section/search_text_field.dart';
@@ -48,7 +48,7 @@ class _SearchScreenContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(searchResultProvider);
     if (state.hasValue && state.requireValue.list.isNotEmpty) {
-      return const SearchResultPage();
+      return const ResultListPage();
     } else if (state.isLoading) {
       return const FirstLoadingPage();
     } else if (state.hasError) {

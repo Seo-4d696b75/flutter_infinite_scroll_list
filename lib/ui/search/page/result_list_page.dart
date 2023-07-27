@@ -6,8 +6,8 @@ import 'package:flutter_infinite_scroll_list/ui/search/section/error_snackbar.da
 import 'package:flutter_infinite_scroll_list/ui/search/section/repository_item.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SearchResultPage extends HookConsumerWidget {
-  const SearchResultPage({super.key});
+class ResultListPage extends HookConsumerWidget {
+  const ResultListPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
