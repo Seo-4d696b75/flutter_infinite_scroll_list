@@ -8,7 +8,7 @@ part 'search_repository.g.dart';
 
 final debugSearchDelayMilliSecProvider = StateProvider((_) => 1000);
 
-final debugSearchErrorFlagProvider = StateProvider((_) => false);
+final debugSearchErrorFlagProvider = StateProvider((_) => true);
 
 @riverpod
 SearchRepository searchRepository(SearchRepositoryRef ref) {
