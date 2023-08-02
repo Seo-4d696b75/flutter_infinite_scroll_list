@@ -32,13 +32,15 @@ class _DebugMenuContent extends ConsumerWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        CheckboxListTile(
-          title: Text(l.debugMenuDelayLabel),
-          controlAffinity: ListTileControlAffinity.leading,
-          value: debugDelay > 0,
-          onChanged: (checked) {
-            ref.read(debugSearchDelayMilliSecProvider.notifier).state =
-                checked == true ? 1000 : 0;
+        Text(l.debugMenuDelayLabel),
+        Slider(
+          value: debugDelay.toDouble(),
+          max: 5000,
+          divisions: 10,
+          label: '$debugDelay ms',
+          onChanged: (value) {
+            ref.refresh(debugSearchDelayMilliSecProvider.notifier).state =
+                value.toInt();
           },
         ),
         CheckboxListTile(
