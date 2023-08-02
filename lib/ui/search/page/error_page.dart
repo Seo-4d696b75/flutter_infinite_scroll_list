@@ -9,26 +9,24 @@ class ErrorPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = L10n.of(context);
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(
-            Icons.error_outline,
-            color: Colors.red,
-            size: 80,
-          ),
-          const SizedBox(height: 16),
-          Text(l.searchErrorPageTitle),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              ref.invalidate(searchResultProvider);
-            },
-            child: Text(l.retrySearchButtonLabel),
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(
+          Icons.error_outline,
+          color: Colors.red,
+          size: 80,
+        ),
+        const SizedBox(height: 16),
+        Text(l.searchErrorPageTitle),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () {
+            ref.invalidate(searchResultProvider);
+          },
+          child: Text(l.retrySearchButtonLabel),
+        ),
+      ],
     );
   }
 }

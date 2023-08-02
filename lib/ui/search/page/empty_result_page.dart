@@ -7,19 +7,17 @@ class EmptyResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = L10n.of(context);
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(
-            Icons.search_off_outlined,
-            color: Colors.grey,
-            size: 80,
-          ),
-          const SizedBox(height: 16),
-          Text(l.searchEmptyPageTitle),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(
+          Icons.search_off_outlined,
+          color: Colors.grey,
+          size: 80,
+        ),
+        const SizedBox(height: 16),
+        Text(l.searchEmptyPageTitle),
+      ],
     );
   }
 }
