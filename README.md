@@ -13,6 +13,10 @@ GitHubのリポジトリを検索してリスト表示するアプリです。�
 
 ![infinite_scroll](https://github.com/Seo-4d696b75/flutter_infinite_scroll_list/assets/25225028/edd9c62e-f8ca-4496-804a-afcb649f10a1)
 
+AppBarの設定アイコンからデバッグメニューを開けます。遅延の挿入やエラーの発生を簡単に試せます。
+
+![debug_menu](https://github.com/Seo-4d696b75/flutter_infinite_scroll_list/assets/25225028/e4bf1fc6-465c-4d64-b9b8-5b5edc5490e4)
+
 
 ## Getting Started
 
